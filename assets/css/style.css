@@ -1,0 +1,89 @@
+@font-face {
+  font-family: "Opificio_neue-regular";
+  src: url(../opificio_neue/Opificio_neue-regular.ttf);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background-color: #191919 !important;
+  font-family: "Opificio_neue-regular";
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: red;
+}
+
+.container-fluid {
+  height: 100vh;
+  padding: 0; /* Enlever les paddings directs pour éviter le débordement */
+}
+
+.wrapper {
+  background-color: #191919 !important;
+  height: 100%;
+  padding: 40px; /* Utiliser un padding interne pour le contenu */
+  position: relative; /* Position relative pour contenir le bg-wrap absolu */
+  overflow: hidden; /* Masquer tout contenu débordant */
+}
+
+#bg-wrap {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1; /* Assurez-vous que le bg-wrap est derrière les autres éléments */
+}
+
+.wrapper-child {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative; /* Assurez-vous que les éléments enfants sont au-dessus du bg-wrap */
+  z-index: 2;
+}
+
+.print-section {
+  flex-grow: 1;
+  position: relative; /* Assurez-vous que cette section est au-dessus du bg-wrap */
+  z-index: 2;
+}
+
+.list-nav {
+  list-style-type: none;
+  position: relative; /* Assurez-vous que les éléments de navigation sont au-dessus du bg-wrap */
+  z-index: 2;
+}
+
+.list-nav li a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+.background-link-white {
+  background-color: white;
+  color: #191919 !important;
+}
+
+.border-01 {
+  border: 1px solid white; /* Exemple de couleur de bordure */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2; /* Assurez-vous que ce conteneur est au-dessus du bg-wrap */
+}

@@ -23,13 +23,13 @@
                         <a data-link="Home" href="#" class="nav-link link-light d-inline-block">Home</a>
                     </li>
                     <li class="col-auto py-2">
-                        <a data-link="Contact" href="#" class="nav-link link-light d-inline-block">Contact</a>
+                        <a data-link="Skills" href="#" class="nav-link link-light d-inline-block">Skills</a>
                     </li>
                     <li class="col-auto py-2">
                         <a data-link="Projects" href="#" class="nav-link link-light d-inline-block">Projects</a>
                     </li>
                     <li class="col-auto py-2">
-                        <a data-link="Side" href="#" class="nav-link link-light d-inline-block">Side</a>
+                        <a data-link="Contact" href="#" class="nav-link link-light d-inline-block">Contact</a>
                     </li>
                 </ul>
             </nav>
@@ -75,7 +75,8 @@
         });
 
         let form = <?php include './contact.php'; ?>;
-        let home = <?php include './home.php' ?>
+        let home = <?php include './home.php' ?>;
+        let skills = <?php include './skills.php' ?>;
 
         $('.nav-link').on('click', function(e) {
             e.preventDefault();
@@ -103,33 +104,66 @@
                     $('.print-section').empty().append(home);
                     $('#socialMediaPrint').addClass('d-none');
                     break;
-                case 'Contact':
-                    $('.print-section').empty().append(form);
-                    $('#socialMediaPrint').removeClass('d-none');
+                case 'Skills':
+                    $('.print-section').empty().append(skills);
+                    $('#socialMediaPrint').addClass('d-none');
                     break;
                 case 'Projects':
                     $('.print-section').empty();
                     $('#socialMediaPrint').addClass('d-none');
                     break;
-                case 'Side':
-                    $('.print-section').empty();
-                    $('#socialMediaPrint').addClass('d-none');
+                case 'Contact':
+                    $('.print-section').empty().append(form);
+                    $('#socialMediaPrint').removeClass('d-none');
                     break;
             }
         });
 
+        // SLIDE PROFESIONAL EXPERIENCE
+
         $(document).on('mouseenter', '.experience-link', function() {
-            $(this).append(`<div class="dropdown-experience my-3">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Malesuada fames ac turpis egestas 
-    integer eget. Augue eget arcu dictum varius duis at consectetur lorem donec. Risus viverra adipiscing at in tellus integer feugiat scelerisque. Vitae congue eu 
-    consequat ac felis donec et odio
+            var $dropdown = $(`<div class="dropdown-experience"><hr>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Malesuada fames ac turpis egestas 
+        integer eget. Augue eget arcu dictum varius duis at consectetur lorem donec. Risus viverra adipiscing at in tellus integer feugiat scelerisque. Vitae congue eu 
+        consequat ac felis donec et odio<hr>
     </div>`);
+
+            $(this).append($dropdown);
+            $dropdown.hide().slideDown(200); // 500 millisecondes pour l'animation d'apparition
         });
 
         $(document).on('mouseleave', '.experience-link', function() {
-            $('.dropdown-experience').remove();
+            $(this).find('.dropdown-experience').slideUp(200, function() {
+                $(this).remove(); // Supprimer l'élément après l'animation
+            });
         });
 
+        // SLIDE CARD TECHNO
+
+        $(document).on('mouseenter', '.card-techno-php', function() {
+            var dropdownCard = $(`<div col-9 class="dropdown-techno"><hr>
+
+                        <div class='card-techno-text'>Connecting to and manipulating databases (MySQL)</div>
+                        <div class='card-techno-text'>Using PDO for prepared statements and secure transactions</div>
+                        <div class='card-techno-text'>Managing CRUD operations for database records</div>
+                        <div class='card-techno-text'>Consuming RESTful APIs</div>
+                        <div class='card-techno-text'>Manipulating JSON data</div>
+                        <div class='card-techno-text'>Reading, writing, and manipulating server files</div>
+
+                    </div>`);
+
+            $(this).parent().after(dropdownCard);
+            dropdownCard.hide().slideLeft(200); // 500 millisecondes pour l'animation d'apparition
+        })
+
+        $(document).on('mouseleave', '.dropdown-techno', function() {
+            $(this).slideUp(200, function() {
+                $(this).remove(); // Supprimer l'élément après l'animation
+            });
+        });
+
+
+        // FORM CONTACT
         $(document).on('submit', '#formContact', function(e) {
             e.preventDefault();
             let formData = $(this).serialize();

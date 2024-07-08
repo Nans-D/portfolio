@@ -1,6 +1,22 @@
 @font-face {
-  font-family: "Opificio_neue-regular";
-  src: url(../opificio_neue/Opificio_neue-regular.ttf);
+  font-family: "thin-arsenal";
+  src: url(../font/MADE\ Mirage\ Thin\ PERSONAL\ USE.otf);
+}
+@font-face {
+  font-family: "regular-arsenal";
+  src: url(../font/MADE\ Mirage\ Regular\ PERSONAL\ USE.otf);
+}
+@font-face {
+  font-family: "demibold-arsenal";
+  src: url(../font/MADE\ Mirage\ Medium\ PERSONAL\ USE.otf);
+}
+@font-face {
+  font-family: "bold-arsenal";
+  src: url(../font/MADE\ Mirage\ Bold\ PERSONAL\ USE.otf);
+}
+@font-face {
+  font-family: "extrabold-arsenal";
+  src: url(../font/MADE\ Mirage\ ExtraBold\ PERSONAL\ USE.otf);
 }
 
 *,
@@ -13,7 +29,7 @@ html,
 body {
   height: 100%;
   margin: 0;
-  font-family: "Opificio_neue-regular";
+  font-family: "regular-arsenal";
 }
 
 input::placeholder,
@@ -94,4 +110,23 @@ ul {
 .disabled {
   pointer-events: none;
   opacity: 0.6;
+}
+
+/* HOME */
+
+.home-title {
+  font-family: "bolder-arsenal";
+}
+
+/* CARD TYPE */
+
+.card-techno {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 10px;
+  border: solid 1px rgba(255, 255, 255, 0.8);
+}
+
+.card-techno-text {
+  font-size: 0.8rem;
 }

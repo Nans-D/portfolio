@@ -1,4 +1,4 @@
-`<div>
+<div>
     I am a full stack developer specializing in PHP, jQuery, and Bootstrap. At 27 years old, I am currently in the process of a career change. I have already had a significant initial experience in development at <a target="_blank" class="link-light" href="https://garetabecane.fr/">GareTaBécane</a>. My goal is to continue improving my skills and adapting to new technologies to offer innovative and effective solutions.</div>
 <div class="my-3 mt-5">
     <h2 class="fs-3 home-title text-decoration-underline">Professional Experience</h2>
@@ -23,4 +23,3 @@
         </li>
     </ul>
 </div>
-`

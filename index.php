@@ -56,6 +56,19 @@
 <script>
     $(document).ready(function() {
 
+        function loadContent(url, callback) {
+            $.ajax({
+                url: url,
+                method: 'GET',
+                success: callback,
+                error: function(xhr, status, error) {
+                    console.error("Failed to load content:", status, error);
+                }
+            });
+        }
+
+        // NAV LINKS
+
         const originalTexts = {};
 
         $('.nav-link').each(function() {
@@ -73,10 +86,6 @@
                 $(this).addClass('link-light');
             }
         });
-
-        let form = <?php include './contact.php'; ?>;
-        let home = <?php include './home.php' ?>;
-        let skills = <?php include './skills.php' ?>;
 
         $('.nav-link').on('click', function(e) {
             e.preventDefault();
@@ -101,25 +110,38 @@
             let data = $(this).data('link');
             switch (data) {
                 case 'Home':
-                    $('.print-section').empty().append(home);
-                    $('#socialMediaPrint').addClass('d-none');
+                    loadContent('./home.php', function(response) {
+                        $('.print-section').empty().append(response);
+                        $('#socialMediaPrint').addClass('d-none');
+                    });
                     break;
                 case 'Skills':
-                    $('.print-section').empty().append(skills);
+                    loadContent('./skills.php', function(response) {
+                        $('.print-section').empty().append(response);
+                        $('#socialMediaPrint').addClass('d-none');
+                    });
                     $('#socialMediaPrint').addClass('d-none');
                     break;
                 case 'Projects':
-                    $('.print-section').empty();
+                    loadContent('./projects.php', function(response) {
+                        $('.print-section').empty().append(response);
+                        $('#socialMediaPrint').addClass('d-none');
+                    });
                     $('#socialMediaPrint').addClass('d-none');
                     break;
                 case 'Contact':
-                    $('.print-section').empty().append(form);
+                    loadContent('./contact.php', function(response) {
+                        $('.print-section').empty().append(response);
+                        $('#socialMediaPrint').addClass('d-none');
+                    });
                     $('#socialMediaPrint').removeClass('d-none');
                     break;
             }
         });
 
-        // SLIDE PROFESIONAL EXPERIENCE
+        // ______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+        // HOME PAGE
 
         $(document).on('mouseenter', '.experience-link', function() {
             var $dropdown = $(`<div class="dropdown-experience"><hr>
@@ -138,38 +160,42 @@
             });
         });
 
+        // ______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
         // SLIDE CARD TECHNO
 
-        $(document).on('mouseenter', '.card-techno-php', function() {
-            var dropdownCard = $(`<div col-9 class="dropdown-techno"><hr>
+        // $(document).on('mouseenter', '.card-techno-php', function() {
+        //     var dropdownCard = $(`<div col-9 class="dropdown-techno"><hr>
 
-                        <div class='card-techno-text'>Connecting to and manipulating databases (MySQL)</div>
-                        <div class='card-techno-text'>Using PDO for prepared statements and secure transactions</div>
-                        <div class='card-techno-text'>Managing CRUD operations for database records</div>
-                        <div class='card-techno-text'>Consuming RESTful APIs</div>
-                        <div class='card-techno-text'>Manipulating JSON data</div>
-                        <div class='card-techno-text'>Reading, writing, and manipulating server files</div>
+        //                 <div class='card-techno-text'>Connecting to and manipulating databases (MySQL)</div>
+        //                 <div class='card-techno-text'>Using PDO for prepared statements and secure transactions</div>
+        //                 <div class='card-techno-text'>Managing CRUD operations for database records</div>
+        //                 <div class='card-techno-text'>Consuming RESTful APIs</div>
+        //                 <div class='card-techno-text'>Manipulating JSON data</div>
+        //                 <div class='card-techno-text'>Reading, writing, and manipulating server files</div>
 
-                    </div>`);
+        //             </div>`);
 
-            $(this).parent().after(dropdownCard);
-            dropdownCard.hide().slideLeft(200); // 500 millisecondes pour l'animation d'apparition
-        })
+        //     $(this).parent().after(dropdownCard);
+        //     dropdownCard.hide().slideLeft(200); // 500 millisecondes pour l'animation d'apparition
+        // })
 
-        $(document).on('mouseleave', '.dropdown-techno', function() {
-            $(this).slideUp(200, function() {
-                $(this).remove(); // Supprimer l'élément après l'animation
-            });
-        });
+        // $(document).on('mouseleave', '.dropdown-techno', function() {
+        //     $(this).slideUp(200, function() {
+        //         $(this).remove(); // Supprimer l'élément après l'animation
+        //     });
+        // });
+
+        // ______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
 
 
-        // FORM CONTACT
+        // CONTACT FORM
         $(document).on('submit', '#formContact', function(e) {
             e.preventDefault();
             let formData = $(this).serialize();
             $.ajax({
                 type: 'POST',
-                url: '../api/formContact.php',
+                url: './api/formContact.php',
                 data: formData,
                 success: function(data) {
                     if (data.response == 200) {

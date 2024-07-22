@@ -1,4 +1,4 @@
-`<h2 class="fs-3 home-title text-decoration-underline">Technical Skills</h2>
+<h2 class="fs-3 home-title text-decoration-underline">Technical Skills</h2>
 <div class="row justify-content-between">
     <div class="col-3 card-php" style="min-width:250px;height:150px">
         <div class="card-techno-php mb-3 h-100">
@@ -41,4 +41,4 @@
             </div>
         </div>
     </div>
-</div>`
+</div>

@@ -1,68 +1,76 @@
-<?php include './header.php' ?>
+<?php include __DIR__ . '/header.php' ?>
 
 <!-- Content -->
 <div class="container-fluid">
     <div class="wrapper position-relative overflow-hidden">
         <div class="d-flex position-relative flex-column text-light h-100 wrapper-child pt-3 px-3">
-            <?php include './waveform.php' ?>
+            <!-- <?php include './waveform.php' ?> -->
 
-            <div class="col-12">
-                <div class='row justify-content-between'>
-                    <div class="col">
-                        <h1 style="font-size:52px;">Nans DELAUBERT</h1>
-                        <h2 style="font-size:18px;">Full stack developer</h2>
-                    </div>
-                    <div id="nameTargetLink" class="col-auto">
+            <div id="content">
+                <div class="col-12">
+                    <div class='row justify-content-between'>
+                        <div class="col">
+                            <h1 style="font-size:52px;">Nans DELAUBERT</h1>
+                            <h2 style="font-size:18px;">Full stack developer</h2>
+                        </div>
+                        <div id="nameTargetLink" class="col-auto">
 
+                        </div>
                     </div>
                 </div>
-            </div>
-            <nav class="position-absolute" style="top:200px;">
-                <ul class="d-flex flex-column list-nav p-0">
-                    <li class="col-auto py-2">
-                        <a data-link="Home" href="#" class="nav-link link-light d-inline-block">Home</a>
-                    </li>
-                    <li class="col-auto py-2">
-                        <a data-link="Skills" href="#" class="nav-link link-light d-inline-block">Skills</a>
-                    </li>
-                    <li class="col-auto py-2">
-                        <a data-link="Projects" href="#" class="nav-link link-light d-inline-block">Projects</a>
-                    </li>
-                    <li class="col-auto py-2">
-                        <a data-link="Contact" href="#" class="nav-link link-light d-inline-block">Contact</a>
-                    </li>
-                </ul>
-            </nav>
+                <nav class="position-absolute" style="top:200px;">
+                    <ul class="d-flex flex-column list-nav p-0">
+                        <li class="col-auto py-2">
+                            <a data-link="Home" href="#home" class="nav-link link-light d-inline-block">Home</a>
+                        </li>
+                        <li class="col-auto py-2">
+                            <a data-link="Skills" href="#skills" class="nav-link link-light d-inline-block">Skills</a>
+                        </li>
+                        <li class="col-auto py-2">
+                            <a data-link="Projects" href="#projects" class="nav-link link-light d-inline-block">Projects</a>
+                        </li>
+                        <li class="col-auto py-2">
+                            <a data-link="Contact" href="#contact" class="nav-link link-light d-inline-block">Contact</a>
+                        </li>
+                    </ul>
+                </nav>
 
-            <div class="container-print row mt-5">
-                <div class="col-3"></div>
-                <div class="col-9">
-                    <section class="print-section"></section>
+                <div class="container-print row mt-5">
+                    <div class="col-3"></div>
+                    <div class="col-9">
+                        <section class="print-section"></section>
+                    </div>
                 </div>
-            </div>
-            <div id="socialMediaPrint" class="position-relative align-self-end mt-auto d-none z-2 pb-3">
-                <a class="text-light text-decoration-none" target="_blank" href="https://fr.linkedin.com/in/nans-delaubert">
-                    <i class="fa-xl fa-brands fa-linkedin"></i>
-                </a>
-                <a class="text-light text-decoration-none" target="_blank" href="https://github.com/Nans-D">
-                    <i class="fa-xl fa-brands fa-square-github"></i>
-                </a>
+                <div id="socialMediaPrint" class="position-relative align-self-end mt-auto d-none z-2 pb-3">
+                    <a class="text-light text-decoration-none" target="_blank" href="https://fr.linkedin.com/in/nans-delaubert">
+                        <i class="fa-xl fa-brands fa-linkedin"></i>
+                    </a>
+                    <a class="text-light text-decoration-none" target="_blank" href="https://github.com/Nans-D">
+                        <i class="fa-xl fa-brands fa-square-github"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<?php include './footer.php' ?>
+<?php include __DIR__ . '/footer.php' ?>
 <script>
     $(document).ready(function() {
 
-        function loadContent(url, callback) {
+        function loadContent() {
+            var hash = window.location.hash.substring(1); // Retire le caractère #
+            var page = hash || 'home'; // Défaut à 'home' si le hash est vide
+
             $.ajax({
-                url: url,
+                url: 'content.php',
                 method: 'GET',
-                success: callback,
-                error: function(xhr, status, error) {
-                    console.error("Failed to load content:", status, error);
+                data: {
+                    page: page
+                },
+                success: function(response) {
+                    $('.print-section').html(response); // Remplace le contenu de la div #content
+
                 }
             });
         }
@@ -104,39 +112,50 @@
                 $(this).addClass('link-light');
             });
 
+
+
             // Définir le lien actuel comme actif et désactivé, puis changer son texte
             $(this).addClass('active disabled').html('<i class="fa-solid fa-arrow-right"></i>').removeClass('link-light');
 
-            let data = $(this).data('link');
-            switch (data) {
-                case 'Home':
-                    loadContent('./home.php', function(response) {
-                        $('.print-section').empty().append(response);
-                        $('#socialMediaPrint').addClass('d-none');
-                    });
-                    break;
-                case 'Skills':
-                    loadContent('./skills.php', function(response) {
-                        $('.print-section').empty().append(response);
-                        $('#socialMediaPrint').addClass('d-none');
-                    });
-                    $('#socialMediaPrint').addClass('d-none');
-                    break;
-                case 'Projects':
-                    loadContent('./projects.php', function(response) {
-                        $('.print-section').empty().append(response);
-                        $('#socialMediaPrint').addClass('d-none');
-                    });
-                    $('#socialMediaPrint').addClass('d-none');
-                    break;
-                case 'Contact':
-                    loadContent('./contact.php', function(response) {
-                        $('.print-section').empty().append(response);
-                        $('#socialMediaPrint').addClass('d-none');
-                    });
-                    $('#socialMediaPrint').removeClass('d-none');
-                    break;
-            }
+
+            e.preventDefault(); // Empêche le comportement par défaut du lien
+            var target = $(this).attr('href');
+            window.location.hash = target; // Change le hash sans recharger la page
+            loadContent(); // Charger le nouveau contenu
+
+            // let data = $(this).data('link');
+            // switch (data) {
+            //     case 'Home':
+            //         loadContent('./home.php', function(response) {
+            //             $('.print-section').empty().append(response);
+            //             $('#socialMediaPrint').addClass('d-none');
+            //         });
+            //         break;
+            //     case 'Skills':
+            //         loadContent('./skills.php', function(response) {
+            //             $('.print-section').empty().append(response);
+            //             $('#socialMediaPrint').addClass('d-none');
+            //         });
+            //         $('#socialMediaPrint').addClass('d-none');
+            //         break;
+            //     case 'Projects':
+            //         loadContent('./projects.php', function(response) {
+            //             $('.print-section').empty().append(response);
+            //             $('#socialMediaPrint').addClass('d-none');
+            //         });
+            //         $('#socialMediaPrint').addClass('d-none');
+            //         break;
+            //     case 'Contact':
+            //         loadContent('./contact.php', function(response) {
+            //             $('.print-section').empty().append(response);
+            //             $('#socialMediaPrint').addClass('d-none');
+            //         });
+            //         $('#socialMediaPrint').removeClass('d-none');
+            //         break;
+            // }
+        });
+        $(window).on('hashchange', function() {
+            loadContent(); // Recharger le contenu lorsque le hash change
         });
 
         // ______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________

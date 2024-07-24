@@ -2,6 +2,8 @@
 // config.php
 define('SITE_NAME', 'My Portfolio');
 define('ENV', 'mamp');
+define('BASE_URL', 'http://localhost:8888/portfolio');
+
 
 function connexion()
 {
